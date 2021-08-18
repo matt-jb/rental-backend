@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "keystone-next",
+    "seed-data": "keystone-next --seed-data"
   },
   "author": "matt-jb",
   "license": "ISC",
@@ -23,5 +24,17 @@
     "stripe": "^8.168.0"
   },
   "keywords": [],
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matt-jb/rental-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matt-jb/rental-backend/issues"
+  },
+  "homepage": "https://github.com/matt-jb/rental-backend#readme",
   "description": ""
 }
