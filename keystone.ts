@@ -1,5 +1,8 @@
+import { createAuth } from '@keystone-next/auth';
 import 'dotenv/config';
 import { config, createSchema } from '@keystone-next/keystone/schema';
+import { User } from './schemas/User';
+import { withItemData, statelessSessions} from '@keystone-next/keystone/session';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
 
@@ -8,7 +11,16 @@ const sessionConfig = {
     secret: process.env.SECRET
 };
 
-export default config({
+const { withAuth } = createAuth({
+    listKey: 'User',
+    identityField: 'email',
+    secretField: 'password',
+    initFirstItem: {
+        fields: ['name', 'email', 'password']
+    }
+});
+
+export default withAuth(config({
     server: {
         cors: {
             origin: [ process.env.FRONTEND_URL ],
@@ -16,15 +28,20 @@ export default config({
         },
     },
     db: {
-        provider: 'sqlite',
         adapter: 'mongoose',
-        url: process.env.FRONTEND_URL,
+        url: process.env.DATABASE,
 
     },
     lists: createSchema({
-        // To fill
+        User
     }),
     ui: {
-        isAccessAllowed: () => true,
-    }
-});
+        isAccessAllowed: ({ session }) => {
+            console.log(session);
+            return !!session?.data;
+        },
+    },
+    session: withItemData(statelessSessions(sessionConfig), {
+        User: `id`
+    })
+}));
