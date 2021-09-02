@@ -146,6 +146,139 @@ input UsersCreateInput {
   data: UserCreateInput
 }
 
+""" A keystone list """
+type Product {
+  id: ID!
+  name: String
+  description: String
+  status: String
+  priceBuy: Int
+  priceRent: Int
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput]
+  OR: [ProductWhereInput]
+  id: ID
+  id_not: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  description: String
+  description_not: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_i: String
+  description_not_i: String
+  description_contains_i: String
+  description_not_contains_i: String
+  description_starts_with_i: String
+  description_not_starts_with_i: String
+  description_ends_with_i: String
+  description_not_ends_with_i: String
+  description_in: [String]
+  description_not_in: [String]
+  status: String
+  status_not: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
+  status_i: String
+  status_not_i: String
+  status_contains_i: String
+  status_not_contains_i: String
+  status_starts_with_i: String
+  status_not_starts_with_i: String
+  status_ends_with_i: String
+  status_not_ends_with_i: String
+  status_in: [String]
+  status_not_in: [String]
+  priceBuy: Int
+  priceBuy_not: Int
+  priceBuy_lt: Int
+  priceBuy_lte: Int
+  priceBuy_gt: Int
+  priceBuy_gte: Int
+  priceBuy_in: [Int]
+  priceBuy_not_in: [Int]
+  priceRent: Int
+  priceRent_not: Int
+  priceRent_lt: Int
+  priceRent_lte: Int
+  priceRent_gt: Int
+  priceRent_gte: Int
+  priceRent_in: [Int]
+  priceRent_not_in: [Int]
+}
+
+input ProductWhereUniqueInput {
+  id: ID!
+}
+
+enum SortProductsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  status_ASC
+  status_DESC
+  priceBuy_ASC
+  priceBuy_DESC
+  priceRent_ASC
+  priceRent_DESC
+}
+
+input ProductUpdateInput {
+  name: String
+  description: String
+  status: String
+  priceBuy: Int
+  priceRent: Int
+}
+
+input ProductsUpdateInput {
+  id: ID!
+  data: ProductUpdateInput
+}
+
+input ProductCreateInput {
+  name: String
+  description: String
+  status: String
+  priceBuy: Int
+  priceRent: Int
+}
+
+input ProductsCreateInput {
+  data: ProductCreateInput
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -339,6 +472,19 @@ type Query {
   """ Retrieve the meta-data for the User list. """
   _UsersMeta: _ListMeta
 
+  """ Search for all Product items which match the where clause. """
+  allProducts(where: ProductWhereInput, search: String, sortBy: [SortProductsBy!], orderBy: String, first: Int, skip: Int): [Product]
+
+  """ Search for the Product item with the matching ID. """
+  Product(where: ProductWhereUniqueInput!): Product
+
+  """ Perform a meta-query on all Product items which match the where clause. 
+  """
+  _allProductsMeta(where: ProductWhereInput, search: String, sortBy: [SortProductsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+
+  """ Retrieve the meta-data for the Product list. """
+  _ProductsMeta: _ListMeta
+
   """ Retrieve the meta-data for all lists. """
   _ksListsMeta(where: _ksListsMetaInput): [_ListMeta]
 
@@ -366,6 +512,24 @@ type Mutation {
 
   """ Delete multiple User items by ID. """
   deleteUsers(ids: [ID!]): [User]
+
+  """ Create a single Product item. """
+  createProduct(data: ProductCreateInput): Product
+
+  """ Create multiple Product items. """
+  createProducts(data: [ProductsCreateInput]): [Product]
+
+  """ Update a single Product item by ID. """
+  updateProduct(id: ID!, data: ProductUpdateInput): Product
+
+  """ Update multiple Product items by ID. """
+  updateProducts(data: [ProductsUpdateInput]): [Product]
+
+  """ Delete a single Product item by ID. """
+  deleteProduct(id: ID!): Product
+
+  """ Delete multiple Product items by ID. """
+  deleteProducts(ids: [ID!]): [Product]
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult!
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
   endSession: Boolean!
