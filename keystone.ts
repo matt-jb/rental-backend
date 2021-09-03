@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { ProductImage } from './schemas/ProductImage';
 import { withItemData, statelessSessions} from '@keystone-next/keystone/session';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
@@ -33,7 +34,7 @@ export default withAuth(config({
         url: process.env.DATABASE,
 
     },
-    lists: createSchema({ User, Product }),
+    lists: createSchema({ User, Product, ProductImage }),
     ui: {
         isAccessAllowed: ({ session }) => {
             return !!session?.data;
