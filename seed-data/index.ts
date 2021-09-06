@@ -1,6 +1,6 @@
 import { products } from './data';
 
-export async function insertSeedData(ks: any) {
+export async function insertSeedData(ks) {
   // Keystone API changed, so we need to check for both versions to get keystone
   const keystone = ks.keystone || ks;
   const adapter = keystone.adapters?.MongooseAdapter || keystone.adapter;
