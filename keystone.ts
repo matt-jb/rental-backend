@@ -6,6 +6,8 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { withItemData, statelessSessions} from '@keystone-next/keystone/session';
 import { insertSeedData } from './seed-data';
+import { sendPasswordResetEmail } from './lib/mail';
+import { CartItem } from './schemas/CartItem';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
 
@@ -20,6 +22,11 @@ const { withAuth } = createAuth({
     secretField: 'password',
     initFirstItem: {
         fields: ['name', 'email', 'password']
+    },
+    passwordResetLink: {
+        async sendToken(args) {
+            await sendPasswordResetEmail(args.token, args.identity);
+        }
     }
 });
 
@@ -41,7 +48,7 @@ export default withAuth(config({
 
 
     },
-    lists: createSchema({ User, Product, ProductImage }),
+    lists: createSchema({ User, Product, ProductImage, CartItem }),
     ui: {
         isAccessAllowed: ({ session }) => {
             return !!session?.data;
