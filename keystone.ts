@@ -8,6 +8,7 @@ import { withItemData, statelessSessions} from '@keystone-next/keystone/session'
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { CartItem } from './schemas/CartItem';
+import { extendGraphqlSchema } from './mutations';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
 
@@ -49,6 +50,7 @@ export default withAuth(config({
 
     },
     lists: createSchema({ User, Product, ProductImage, CartItem }),
+    extendGraphqlSchema,
     ui: {
         isAccessAllowed: ({ session }) => {
             return !!session?.data;
