@@ -9,6 +9,8 @@ import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { CartItem } from './schemas/CartItem';
 import { extendGraphqlSchema } from './mutations';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
 
@@ -49,7 +51,7 @@ export default withAuth(config({
 
 
     },
-    lists: createSchema({ User, Product, ProductImage, CartItem }),
+    lists: createSchema({ User, Product, ProductImage, CartItem, OrderItem, Order }),
     extendGraphqlSchema,
     ui: {
         isAccessAllowed: ({ session }) => {
