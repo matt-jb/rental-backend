@@ -553,7 +553,7 @@ type OrderItem {
   name: String
   description: String
   photo: ProductImage
-  price: Int
+  priceBuy: Int
   quantity: Int
   order: Order
 }
@@ -603,14 +603,14 @@ input OrderItemWhereInput {
   description_not_in: [String]
   photo: ProductImageWhereInput
   photo_is_null: Boolean
-  price: Int
-  price_not: Int
-  price_lt: Int
-  price_lte: Int
-  price_gt: Int
-  price_gte: Int
-  price_in: [Int]
-  price_not_in: [Int]
+  priceBuy: Int
+  priceBuy_not: Int
+  priceBuy_lt: Int
+  priceBuy_lte: Int
+  priceBuy_gt: Int
+  priceBuy_gte: Int
+  priceBuy_in: [Int]
+  priceBuy_not_in: [Int]
   quantity: Int
   quantity_not: Int
   quantity_lt: Int
@@ -636,8 +636,8 @@ enum SortOrderItemsBy {
   description_DESC
   photo_ASC
   photo_DESC
-  price_ASC
-  price_DESC
+  priceBuy_ASC
+  priceBuy_DESC
   quantity_ASC
   quantity_DESC
   order_ASC
@@ -648,7 +648,7 @@ input OrderItemUpdateInput {
   name: String
   description: String
   photo: ProductImageRelateToOneInput
-  price: Int
+  priceBuy: Int
   quantity: Int
   order: OrderRelateToOneInput
 }
@@ -662,7 +662,7 @@ input OrderItemCreateInput {
   name: String
   description: String
   photo: ProductImageRelateToOneInput
-  price: Int
+  priceBuy: Int
   quantity: Int
   order: OrderRelateToOneInput
 }
