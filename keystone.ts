@@ -11,6 +11,8 @@ import { CartItem } from './schemas/CartItem';
 import { extendGraphqlSchema } from './mutations';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
+import { Role } from './schemas/Role';
+import { permissionsList } from './schemas/fields';
 
 const databaseURL = process.env.DATABASE || 'mongodb://localhost/keystone-rental';
 
@@ -51,12 +53,12 @@ export default withAuth(config({
 
 
     },
-    lists: createSchema({ User, Product, ProductImage, CartItem, OrderItem, Order }),
+    lists: createSchema({ User, Product, ProductImage, CartItem, OrderItem, Order, Role }),
     extendGraphqlSchema,
     ui: {
         isAccessAllowed: ({ session }) => {
             return !!session?.data;
         },
     },
-    session: withItemData(statelessSessions(sessionConfig), { User: `id` })
+    session: withItemData(statelessSessions(sessionConfig), { User: `id name email role { ${permissionsList.join(' ')} }` })
 }));

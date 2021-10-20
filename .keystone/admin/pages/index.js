@@ -39,6 +39,9 @@ export default function Home() {
           Order: _allOrdersMeta {
             count
           }
+          Role: _allRolesMeta {
+            count
+          }
         }
       `}
     />
